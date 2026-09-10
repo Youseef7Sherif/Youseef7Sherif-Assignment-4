@@ -32,6 +32,7 @@ internal class Program
         };
 
         DisplayAllSessions(sessionNames, sessionDates, sessionDurations);
+        SearchForSession(sessionNames, sessionDates, sessionDurations);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -46,7 +47,25 @@ internal class Program
         }
     }
 
+    public static void SearchForSession(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        Console.Write("Enter session name: ");
+        string searchName = Console.ReadLine() ?? "";
 
+        int index = Array.IndexOf(sessionNames, searchName);
+
+        if (index != -1)
+        {
+            Console.WriteLine($"Name: {sessionNames[index]}");
+            Console.WriteLine($"Date: {sessionDates[index]:dd MMMM yyyy}");
+            Console.WriteLine($"Start Time: {sessionDates[index]:hh:mm tt}");
+            Console.WriteLine($"Duration: {sessionDurations[index]} minutes");
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
+    }
 
 
 
