@@ -30,6 +30,27 @@ internal class Program
              240,
              180
         };
+
+        DisplayAllSessions(sessionNames, sessionDates, sessionDurations);
     }
+
+    public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {sessionNames[i]}");
+            Console.WriteLine($"Date: {sessionDates[i]:dd MMMM yyyy}");
+            Console.WriteLine($"Start Time: {sessionDates[i]:hh:mm tt}");
+            Console.WriteLine($"Duration: {sessionDurations[i]} minutes");
+            Console.WriteLine();
+        }
+    }
+
+
+
+
+
+
+
 }
 
