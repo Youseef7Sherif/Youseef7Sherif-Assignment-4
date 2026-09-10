@@ -1,4 +1,6 @@
-﻿namespace Assignment4;
+﻿using System.Text;
+
+namespace Assignment4;
 
 internal class Program
 {
@@ -68,6 +70,27 @@ internal class Program
         int longestDuration = FindLongestDuration(sessionDurations);
         Console.WriteLine($"longest Duration: {longestDuration} minutes");
         SortDurations(sessionDurations);
+        Console.WriteLine("\nSession Details:");
+        DisplaySessionDetails(sessionNames[0], sessionDates[0], sessionDurations[0]);
+
+        Console.WriteLine("\nSession End Time:");
+        DateTime endTime = GetSessionEndTime(sessionDates[0], sessionDurations[0]);
+
+        Console.WriteLine($"End Time: {endTime:hh:mm tt}");
+
+        Console.WriteLine("\nRead Session Date:");
+        DateTime newDate = ReadSessionDate();
+        Console.WriteLine($"Entered Date: {newDate:dd MMMM yyyy}");
+
+        Console.WriteLine("\nReport Using String:");
+        string report = BuildReportUsingString(sessionNames, sessionDates, sessionDurations);
+
+        Console.WriteLine(report);
+
+        Console.WriteLine("\nReport Using StringBuilder:");
+        string reportBuilder = BuildReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations);
+
+        Console.WriteLine(reportBuilder);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -80,6 +103,71 @@ internal class Program
             Console.WriteLine($"Duration: {sessionDurations[i]} minutes");
             Console.WriteLine();
         }
+    }
+    public static void DisplaySessionDetails(string name, DateTime date, int duration)
+    {
+        Console.WriteLine($"Name: {name}");
+        Console.WriteLine($"Date: {date:dd MMMM yyyy}");
+        Console.WriteLine($"Start Time: {date:hh:mm tt}");
+        Console.WriteLine($"Duration: {duration} minutes");
+    }
+    public static DateTime GetSessionEndTime(DateTime startTime, int duration)
+    {
+        return startTime.AddMinutes(duration);
+    }
+    public static DateTime ReadSessionDate()
+
+    {
+        Console.Write("Enter session date (dd/MM/yyyy): ");
+        string input = Console.ReadLine() ?? "";
+
+        DateTime date;
+
+        while (!DateTime.TryParseExact(input, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out date))
+        {
+            Console.Write("Invalid date. Enter again (dd/MM/yyyy): ");
+            input = Console.ReadLine() ?? "";
+        }
+
+        return date;
+    }
+    public static string BuildReportUsingString(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        string report = "";
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report += $"Session: {sessionNames[i]}\n";
+            report += $"Date: {sessionDates[i]:dd MMMM yyyy}\n";
+            report += $"Start Time: {sessionDates[i]:hh:mm tt}\n";
+            report += $"Duration: {sessionDurations[i]} minutes\n";
+
+            DateTime endTime = GetSessionEndTime(sessionDates[i], sessionDurations[i]);
+
+            report += $"End Time: {endTime:hh:mm tt}\n";
+            report += "-------------------------\n";
+        }
+
+        return report;
+    }
+    public static string BuildReportUsingStringBuilder(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        StringBuilder report = new StringBuilder();
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report.AppendLine($"Session: {sessionNames[i]}");
+            report.AppendLine($"Date: {sessionDates[i]:dd MMMM yyyy}");
+            report.AppendLine($"Start Time: {sessionDates[i]:hh:mm tt}");
+            report.AppendLine($"Duration: {sessionDurations[i]} minutes");
+
+            DateTime endTime = GetSessionEndTime(sessionDates[i], sessionDurations[i]);
+
+            report.AppendLine($"End Time: {endTime:hh:mm tt}");
+            report.AppendLine("-------------------------");
+        }
+
+        return report.ToString();
     }
     public static void SearchForSession(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
     {
@@ -208,7 +296,7 @@ internal class Program
         Console.WriteLine("\nDurations of the sessions after sorting ");
         for (int i = 0; i < sortedDuration.Length; i++)
         {
-            Console.WriteLine($"Duration of session {i+1} :{sortedDuration[i]}");
+            Console.WriteLine($"Duration of session {i + 1} :{sortedDuration[i]}");
         }
     }
 
