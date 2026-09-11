@@ -124,6 +124,10 @@ internal class Program
         CalculateDateDifference(sessionNames, sessionDates);
 
         DisplaySessionStatus(sessionNames, sessionDates);
+
+        FindNextSession(sessionNames, sessionDates, sessionDurations);
+        Console.WriteLine("\nDate Formatting:");
+        DisplayDateFormats(sessionNames, sessionDates);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -435,14 +439,36 @@ internal class Program
             return;
         }
         Console.WriteLine($"Next Session: {sessionNames[nextSessionIndex]}");
-        DisplaySessionDetails(sessionNames[nextSessionIndex], sessionDates[nextSessionIndex], sessionDurations[nextSessionIndex]);  
+        DisplaySessionDetails(sessionNames[nextSessionIndex], sessionDates[nextSessionIndex], sessionDurations[nextSessionIndex]);
         Console.WriteLine($"End Time: {GetSessionEndTime(sessionDates[nextSessionIndex], sessionDurations[nextSessionIndex]):hh:mm tt}");
         Console.WriteLine("Time Remaining:");
-        TimeSpan remainingTime =sessionDates[nextSessionIndex] - DateTime.Now;
+        TimeSpan remainingTime = sessionDates[nextSessionIndex] - DateTime.Now;
         Console.WriteLine($"{remainingTime.Days}  days");
         Console.WriteLine($"{remainingTime.Hours}  hours");
 
 
+    }
+    public static void DisplayDateFormats(string[] sessionNames, DateTime[] sessionDates)
+    {
+        Console.Write("Enter session name: ");
+        string sessionName = Console.ReadLine() ?? "";
+
+        int index = Array.IndexOf(sessionNames, sessionName);
+
+        if (index != -1)
+        {
+            DateTime sessionDate = sessionDates[index];
+
+            Console.WriteLine($"yyyy-MM-dd: {sessionDate.ToString("yyyy-MM-dd")}");
+            Console.WriteLine($"dd/MM/yyyy: {sessionDate.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"dd MMMM yyyy: {sessionDate.ToString("dd MMMM yyyy")}");
+            Console.WriteLine($"dddd, dd MMMM yyyy: {sessionDate.ToString("dddd, dd MMMM yyyy")}");
+            Console.WriteLine($"hh:mm tt: {sessionDate.ToString("hh:mm tt")}");
+        }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
     }
 
 }
