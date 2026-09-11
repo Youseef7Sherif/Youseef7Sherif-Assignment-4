@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment4;
 
@@ -119,6 +120,8 @@ internal class Program
         Console.WriteLine($"\nTotal 2: {total2}");
         Console.WriteLine($"\nTotal 3: {total3}");
 
+          
+        SessionDateDetails(sessionNames,sessionDurations,sessionDates);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -362,6 +365,24 @@ internal class Program
     {
                 int totalDuration = CalculateTotalDuration(durations);
                 return totalDuration;
+    }
+    public static void SessionDateDetails(string[] sessionNames, int[] sessionDurations, DateTime[] sessionDates)
+    {
+        Console.WriteLine("enter session name:");
+        string sessionName = Console.ReadLine() ?? "";
+        int index = Array.IndexOf(sessionNames, sessionName);
+        if (index != -1)
+        {
+            Console.WriteLine($"Date: {sessionDates[index]:dd MMMM yyyy}");
+            Console.WriteLine($"Day: {sessionDates[index].DayOfWeek}");
+            Console.WriteLine($"Year: {sessionDates[index].Year}");
+            Console.WriteLine($"Month: {sessionDates[index].Month}");
+            Console.WriteLine($"Day Number: {sessionDates[index].Day}");
+            Console.WriteLine($"Start Time: {sessionDates[index]:hh:mm tt}");
+            Console.WriteLine($"Duration: {sessionDurations[index]} minutes");
+            Console.WriteLine($"End Time: {sessionDates[index].AddMinutes(sessionDurations[index]):hh:mm tt}");
+
+        }
     }
 
 }
