@@ -91,6 +91,26 @@ internal class Program
         string reportBuilder = BuildReportUsingStringBuilder(sessionNames, sessionDates, sessionDurations);
 
         Console.WriteLine(reportBuilder);
+
+        int number = 10;
+
+        Console.WriteLine($"\nBefore: {number}");
+
+        ChangeValue(ref number);
+
+        Console.WriteLine($"After: {number}");
+
+        bool isFound = GetSessionInfo(sessionNames, sessionDurations,out int sessionIndex, out int duration);
+        if(isFound)
+        {
+            Console.WriteLine($"Session found at index {sessionIndex} with duration {duration} minutes.");
+        }
+        Console.WriteLine("\nChange Array Element:");
+        Console.WriteLine("\nBefore change:");
+        DisplayArrayElements(sessionNames);
+        ChangeArrayElement(sessionNames);
+        Console.WriteLine("\nAfter change:");
+        DisplayArrayElements(sessionNames);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -297,6 +317,37 @@ internal class Program
         for (int i = 0; i < sortedDuration.Length; i++)
         {
             Console.WriteLine($"Duration of session {i + 1} :{sortedDuration[i]}");
+        }
+    }
+    public static void ChangeValue(ref int number)
+    {
+        number += 10;
+    }
+    public static bool GetSessionInfo(string[] sessionNames,int[] sessionDurations,out int index,out int duration)
+    {
+        Console.WriteLine("Enter the session name to get its index and duration:");
+        string sessionName=Console.ReadLine() ?? "";
+        index = Array.IndexOf(sessionNames, sessionName);
+        if (index != -1)
+        {
+            duration = sessionDurations[index];
+            return true;
+        }
+        else
+        {
+            duration = 0;
+            return false;
+        }
+    }
+    public static void ChangeArrayElement(string[] arr)
+    {
+        arr[0] = "C# Advanced";
+    }
+    public static void DisplayArrayElements(string[] arr)
+    {
+        foreach (string item in arr)
+        {
+            Console.WriteLine(item);
         }
     }
 
