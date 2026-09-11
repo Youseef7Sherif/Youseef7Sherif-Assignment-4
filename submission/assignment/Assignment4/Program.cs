@@ -419,4 +419,30 @@ internal class Program
 
         }
     }
+    public static void FindNextSession(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        var nextSessionIndex = -1;
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            if (sessionDates[i] > DateTime.Now && (nextSessionIndex == -1 || sessionDates[i] < sessionDates[nextSessionIndex]))
+            {
+                nextSessionIndex = i;
+            }
+        }
+        if (nextSessionIndex == -1)
+        {
+            Console.WriteLine("No upcoming sessions.");
+            return;
+        }
+        Console.WriteLine($"Next Session: {sessionNames[nextSessionIndex]}");
+        DisplaySessionDetails(sessionNames[nextSessionIndex], sessionDates[nextSessionIndex], sessionDurations[nextSessionIndex]);  
+        Console.WriteLine($"End Time: {GetSessionEndTime(sessionDates[nextSessionIndex], sessionDurations[nextSessionIndex]):hh:mm tt}");
+        Console.WriteLine("Time Remaining:");
+        TimeSpan remainingTime =sessionDates[nextSessionIndex] - DateTime.Now;
+        Console.WriteLine($"{remainingTime.Days}  days");
+        Console.WriteLine($"{remainingTime.Hours}  hours");
+
+
+    }
+
 }
