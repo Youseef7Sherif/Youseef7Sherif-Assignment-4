@@ -111,6 +111,14 @@ internal class Program
         ChangeArrayElement(sessionNames);
         Console.WriteLine("\nAfter change:");
         DisplayArrayElements(sessionNames);
+        int total1 = CalculateTotalDurationWithParams(120, 180);
+        int total2 = CalculateTotalDurationWithParams(120, 180, 240);
+        int total3 = CalculateTotalDurationWithParams(60, 90, 120, 180, 240);
+
+        Console.WriteLine($"\nTotal 1: {total1}");
+        Console.WriteLine($"\nTotal 2: {total2}");
+        Console.WriteLine($"\nTotal 3: {total3}");
+
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -349,6 +357,11 @@ internal class Program
         {
             Console.WriteLine(item);
         }
+    }
+    public static int CalculateTotalDurationWithParams(params int[] durations)
+    {
+                int totalDuration = CalculateTotalDuration(durations);
+                return totalDuration;
     }
 
 }
