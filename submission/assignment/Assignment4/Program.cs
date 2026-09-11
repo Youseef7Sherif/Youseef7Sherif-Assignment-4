@@ -122,6 +122,8 @@ internal class Program
         SessionDateDetails(sessionNames, sessionDurations, sessionDates);
 
         CalculateDateDifference(sessionNames, sessionDates);
+
+        DisplaySessionStatus(sessionNames, sessionDates);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -404,5 +406,17 @@ internal class Program
         else
             Console.WriteLine("session not found");
     }
-}
+    public static void DisplaySessionStatus(string[] sessionNames, DateTime[] sessionDates)
+    {
+        string status;
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            if (sessionDates[i] > DateTime.Now)
+                status = "Upcoming";
+            else
+                status = "Past";
+            Console.WriteLine($"{sessionNames[i]} {status}");
 
+        }
+    }
+}
