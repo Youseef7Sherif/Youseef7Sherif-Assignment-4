@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace Assignment4;
 
 internal class Program
@@ -101,8 +99,8 @@ internal class Program
 
         Console.WriteLine($"After: {number}");
 
-        bool isFound = GetSessionInfo(sessionNames, sessionDurations,out int sessionIndex, out int duration);
-        if(isFound)
+        bool isFound = GetSessionInfo(sessionNames, sessionDurations, out int sessionIndex, out int duration);
+        if (isFound)
         {
             Console.WriteLine($"Session found at index {sessionIndex} with duration {duration} minutes.");
         }
@@ -120,8 +118,10 @@ internal class Program
         Console.WriteLine($"\nTotal 2: {total2}");
         Console.WriteLine($"\nTotal 3: {total3}");
 
-          
-        SessionDateDetails(sessionNames,sessionDurations,sessionDates);
+
+        SessionDateDetails(sessionNames, sessionDurations, sessionDates);
+
+        CalculateDateDifference(sessionNames, sessionDates);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -334,10 +334,10 @@ internal class Program
     {
         number += 10;
     }
-    public static bool GetSessionInfo(string[] sessionNames,int[] sessionDurations,out int index,out int duration)
+    public static bool GetSessionInfo(string[] sessionNames, int[] sessionDurations, out int index, out int duration)
     {
         Console.WriteLine("Enter the session name to get its index and duration:");
-        string sessionName=Console.ReadLine() ?? "";
+        string sessionName = Console.ReadLine() ?? "";
         index = Array.IndexOf(sessionNames, sessionName);
         if (index != -1)
         {
@@ -363,8 +363,8 @@ internal class Program
     }
     public static int CalculateTotalDurationWithParams(params int[] durations)
     {
-                int totalDuration = CalculateTotalDuration(durations);
-                return totalDuration;
+        int totalDuration = CalculateTotalDuration(durations);
+        return totalDuration;
     }
     public static void SessionDateDetails(string[] sessionNames, int[] sessionDurations, DateTime[] sessionDates)
     {
@@ -383,7 +383,26 @@ internal class Program
             Console.WriteLine($"End Time: {sessionDates[index].AddMinutes(sessionDurations[index]):hh:mm tt}");
 
         }
+        else
+        {
+            Console.WriteLine("Session not found.");
+        }
     }
-
+    public static void CalculateDateDifference(string[] sessionNames, DateTime[] sessionDates)
+    {
+        Console.WriteLine("enter First Session name:");
+        string sessionName1 = Console.ReadLine() ?? "";
+        int index1 = Array.IndexOf(sessionNames, sessionName1);
+        Console.WriteLine("enter Second Session name:");
+        string sessionName2 = Console.ReadLine() ?? "";
+        int index2 = Array.IndexOf(sessionNames, sessionName2);
+        if (index1 != -1 && index2 != -1)
+        {
+            TimeSpan diffTime = (sessionDates[index1] - sessionDates[index2]).Duration();// for negative
+            Console.WriteLine($"Difference:\n{diffTime.TotalDays} days\n{diffTime.TotalHours} hours");
+        }
+        else
+            Console.WriteLine("session not found");
+    }
 }
 
