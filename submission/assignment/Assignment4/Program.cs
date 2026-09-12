@@ -134,6 +134,10 @@ internal class Program
         DateTime validDate = ReadAndValidateDate();
 
         Console.WriteLine($"Valid Date: {validDate:yyyy-MM-dd HH:mm}");
+
+        int choice = ReadMenuOption();
+        Console.WriteLine($"You selected option: {choice}");
+
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -491,5 +495,27 @@ internal class Program
 
         return date;
     }
+    public static int ReadMenuOption()
+    {
+        Console.WriteLine("Choose an option:");
+        string option = Console.ReadLine() ?? "";
+        int choice = 0;
+        bool flag = true;
+        while (flag)
+        {
+            try
+            {
+                choice = int.Parse(option);
+                flag = false;
+            }
 
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+                Console.WriteLine("\nChoose an option:");
+                option = Console.ReadLine() ?? "";
+            }
+        }
+        return choice;
+    }
 }
