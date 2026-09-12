@@ -33,17 +33,20 @@ public class ScheduleBenchmark
         180
     };
 
+    [Params(100, 1000, 10000, 100000)]
+    public int Iterations;
+
     [Benchmark]
     public string StringConcatenation()
     {
         string report = "";
 
-        for (int i = 0; i < sessionNames.Length; i++)
+        for (int i = 0; i < Iterations; i++)
         {
-            report += $"{sessionNames[i]}";
-            report += $" - {sessionDates[i]:dd/MM/yyyy}";
-            report += $" {sessionDates[i]:hh:mm tt}";
-            report += $" - {sessionDurations[i]} minutes\n";
+            report += $"{sessionNames[i % sessionNames.Length]}";
+            report += $" - {sessionDates[i % sessionDates.Length]:dd/MM/yyyy}";
+            report += $" {sessionDates[i % sessionDates.Length]:hh:mm tt}";
+            report += $" - {sessionDurations[i % sessionDurations.Length]} minutes\n";
         }
 
         return report;
@@ -54,12 +57,12 @@ public class ScheduleBenchmark
     {
         StringBuilder report = new StringBuilder();
 
-        for (int i = 0; i < sessionNames.Length; i++)
+        for (int i = 0; i < Iterations; i++)
         {
-            report.Append($"{sessionNames[i]}");
-            report.Append($" - {sessionDates[i]:dd/MM/yyyy}");
-            report.Append($" {sessionDates[i]:hh:mm tt}");
-            report.AppendLine($" - {sessionDurations[i]} minutes");
+            report.Append($"{sessionNames[i % sessionNames.Length]}");
+            report.Append($" - {sessionDates[i % sessionDates.Length]:dd/MM/yyyy}");
+            report.Append($" {sessionDates[i % sessionDates.Length]:hh:mm tt}");
+            report.AppendLine($" - {sessionDurations[i % sessionDurations.Length]} minutes");
         }
 
         return report.ToString();
