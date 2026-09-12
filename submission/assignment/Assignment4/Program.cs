@@ -139,6 +139,15 @@ internal class Program
         Console.WriteLine($"You selected option: {choice}");
 
         InvalidArrayIndex(sessionNames);
+
+        try
+        {
+            ValidatesASessionDuration();
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -534,4 +543,16 @@ internal class Program
 
         }
     }
+    public static void ValidatesASessionDuration()
+    {
+        int duration;
+        Console.WriteLine("Enter the session duration in minutes:");
+        duration = ReadMenuOption();
+        if (duration <= 0)
+        {
+            throw new ArgumentException("Duration must be greater than zero.");
+        }
+        Console.WriteLine("Duration accepted.");
+    }
+
 }
