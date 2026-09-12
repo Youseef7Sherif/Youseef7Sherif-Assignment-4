@@ -152,6 +152,11 @@ internal class Program
         Console.WriteLine("\nReport Using String:");
         string report2 = BuildReportUsingString2(sessionNames, sessionDates, sessionDurations);
         Console.WriteLine(report2);
+
+        Console.WriteLine("\nReport Using StringBuilder:");
+        string reportBuilder2 = BuildReportUsingStringBuilder2(sessionNames, sessionDates, sessionDurations);
+
+        Console.WriteLine(reportBuilder2);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -575,4 +580,19 @@ internal class Program
 
         return report;
     }
+    public static string BuildReportUsingStringBuilder2(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        StringBuilder report = new StringBuilder();
+
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report.Append($"{sessionNames[i]}");
+            report.Append($" - {sessionDates[i]:dd/MM/yyyy}");
+            report.Append($" {sessionDates[i]:hh:mm tt}");
+            report.AppendLine($" - {sessionDurations[i]} minutes");
+        }
+
+        return report.ToString();
+    }
+
 }
