@@ -128,6 +128,12 @@ internal class Program
         FindNextSession(sessionNames, sessionDates, sessionDurations);
         Console.WriteLine("\nDate Formatting:");
         DisplayDateFormats(sessionNames, sessionDates);
+
+        Console.WriteLine("\nRead and Validate Date:");
+
+        DateTime validDate = ReadAndValidateDate();
+
+        Console.WriteLine($"Valid Date: {validDate:yyyy-MM-dd HH:mm}");
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -469,6 +475,21 @@ internal class Program
         {
             Console.WriteLine("Session not found.");
         }
+    }
+    public static DateTime ReadAndValidateDate()
+    {
+        Console.Write("Enter date (yyyy-MM-dd HH:mm): ");
+        string input = Console.ReadLine() ?? "";
+
+        DateTime date;
+
+        while (!DateTime.TryParseExact(input, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out date))
+        {
+            Console.Write("Invalid date. Enter again (yyyy-MM-dd HH:mm): ");
+            input = Console.ReadLine() ?? "";
+        }
+
+        return date;
     }
 
 }
