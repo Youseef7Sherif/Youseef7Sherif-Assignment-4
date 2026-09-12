@@ -1,6 +1,7 @@
 ﻿using System.Text;
 namespace Assignment4;
 
+using BenchmarkDotNet.Running;
 internal class Program
 {
     static void Main(string[] args)
@@ -157,6 +158,9 @@ internal class Program
         string reportBuilder2 = BuildReportUsingStringBuilder2(sessionNames, sessionDates, sessionDurations);
 
         Console.WriteLine(reportBuilder2);
+
+        BenchmarkRunner.Run<ScheduleBenchmark>();
+
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
