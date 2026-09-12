@@ -540,7 +540,10 @@ internal class Program
         catch (IndexOutOfRangeException)
         {
             Console.WriteLine("The selected session index is out of range.");
-
+        }
+        finally
+        {
+            Console.WriteLine("Input operation finished.");
         }
     }
     public static void ValidatesASessionDuration()
