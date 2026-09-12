@@ -138,6 +138,7 @@ internal class Program
         int choice = ReadMenuOption();
         Console.WriteLine($"You selected option: {choice}");
 
+        InvalidArrayIndex(sessionNames);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -517,5 +518,20 @@ internal class Program
             }
         }
         return choice;
+    }
+    public static void InvalidArrayIndex(string[] sessionNames)
+    {
+        Console.WriteLine("Enter the index of the session name you want to access:");
+        int index = ReadMenuOption();
+        try
+        {
+            Console.WriteLine($"Session name at index {index}: {sessionNames[index]}");
+
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("The selected session index is out of range.");
+
+        }
     }
 }
