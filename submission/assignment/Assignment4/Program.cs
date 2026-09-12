@@ -148,6 +148,10 @@ internal class Program
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+
+        Console.WriteLine("\nReport Using String:");
+        string report2 = BuildReportUsingString2(sessionNames, sessionDates, sessionDurations);
+        Console.WriteLine(report2);
     }
 
     public static void DisplayAllSessions(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
@@ -557,5 +561,18 @@ internal class Program
         }
         Console.WriteLine("Duration accepted.");
     }
+    public static string BuildReportUsingString2(string[] sessionNames, DateTime[] sessionDates, int[] sessionDurations)
+    {
+        string report = "";
 
+        for (int i = 0; i < sessionNames.Length; i++)
+        {
+            report += $"{sessionNames[i]}";
+            report += $" - {sessionDates[i]:dd/MM/yyyy}";
+            report += $" {sessionDates[i]:hh:mm tt}";
+            report += $" - {sessionDurations[i]} minutes\n";
+        }
+
+        return report;
+    }
 }
